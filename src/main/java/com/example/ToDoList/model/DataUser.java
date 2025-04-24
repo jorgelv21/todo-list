@@ -9,7 +9,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.*;
 
-
+/**
+ * Class with data of user
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,21 +21,36 @@ import lombok.*;
 public class DataUser extends GenericClass {
 
 
+    /**
+     * Id of user.
+     */
     @JsonIdentityReference
     @JsonBackReference
     @OneToOne
     @JoinColumn(name = "user_id")
     private User userId;
 
+    /**
+     * Email of user.
+     */
     @Column(name= "email")
     private String email;
 
+    /**
+     * Phone of user.
+     */
     @Column(name = "phone")
     private String phone;
 
+    /**
+     * Age of user.
+     */
     @Column(name = "age")
     private Number age;
 
+    /**
+     * Gender of user.
+     */
     @Column(name = "gender")
     private EGender gender;
 }
