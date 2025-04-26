@@ -35,7 +35,7 @@ public abstract class GenericService<T extends GenericClass, L extends Number> {
      * Find all data method
      * @return Data list.
      */
-    public List<?> getAllData(){
+    public List<T> getAllData(){
         return genericRepository.findAll();
     }
 
