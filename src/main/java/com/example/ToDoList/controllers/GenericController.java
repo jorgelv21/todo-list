@@ -9,7 +9,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
+@RestController
 public class GenericController<T extends GenericClass, L extends Number> extends GenericService<T, L> {
     /**
      * Generic Service Constructor
@@ -41,8 +43,8 @@ public class GenericController<T extends GenericClass, L extends Number> extends
     @PutMapping("/{id}")
     @PreAuthorize("Authorization::hasRole('USER')")
     public ResponseEntity<Void> update (@PathVariable("id") L id,
-                                        @RequestBody T payload){
-        updateData(payload, id);
+                                        @RequestBody Map<String, Object> updates){
+        updateData(updates, id);
         return ResponseEntity.ok().build();
     }
 
@@ -53,7 +55,7 @@ public class GenericController<T extends GenericClass, L extends Number> extends
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/logically/{id}")
+    @DeleteMapping("/physically/{id}")
     @PreAuthorize("Authorization::hasRole('USER')")
     public ResponseEntity<Void> deletePhysically (@PathVariable("id") L id){
         this.deleteDataPhysically(id);
