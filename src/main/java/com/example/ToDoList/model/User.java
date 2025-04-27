@@ -31,4 +31,10 @@ public class User extends GenericClass{
     @JsonManagedReference
     private DataUser dataUser;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
 }
