@@ -3,11 +3,11 @@ package com.example.ToDoList.model;
 import com.example.ToDoList.enuns.EGender;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.PostgreSQLEnumJdbcType;
+
 
 /**
  * Class with data of user
@@ -27,7 +27,7 @@ public class DataUser extends GenericClass {
     @JsonIdentityReference
     @JsonBackReference
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", unique = true, nullable = false)
     private User userId;
 
     /**
@@ -46,11 +46,13 @@ public class DataUser extends GenericClass {
      * Age of user.
      */
     @Column(name = "age")
-    private Number age;
+    private int age;
 
     /**
      * Gender of user.
      */
-    @Column(name = "gender")
+    @Column(name = "gender", columnDefinition = "EGender")
+    @Enumerated
+    @JdbcType(PostgreSQLEnumJdbcType.class)
     private EGender gender;
 }

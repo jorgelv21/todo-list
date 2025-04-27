@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Class of user.
@@ -22,6 +23,7 @@ public class User extends GenericClass{
      * Name of user.
      */
     @Column(name = "name")
+    @NotNull
     private String name;
 
     /**
@@ -31,10 +33,12 @@ public class User extends GenericClass{
     @JsonManagedReference
     private DataUser dataUser;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
+    @NotNull
     private String username;
 
     @Column(name = "password")
+    @NotNull
     private String password;
 
 }

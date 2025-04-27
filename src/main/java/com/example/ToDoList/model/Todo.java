@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 /**
- * Class of todo list
+ * Class of to do list
  */
 @Getter
 @Setter
@@ -15,14 +15,14 @@ import lombok.*;
 public class Todo extends GenericClass{
 
     /**
-     * Description of todo
+     * Description of to do
      */
     @Column(name = "description")
     private String description;
 
 
     /**
-     * User who created this todo
+     * User who created this to do
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

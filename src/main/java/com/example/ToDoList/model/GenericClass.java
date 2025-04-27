@@ -2,10 +2,8 @@ package com.example.ToDoList.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.TimeZoneStorage;
-import org.hibernate.annotations.TimeZoneStorageType;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
+import org.springframework.data.annotation.Persistent;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -23,7 +21,7 @@ public class GenericClass {
 
 
     /**
-     * Id of Object
+     * Identification of Object
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,20 +37,20 @@ public class GenericClass {
     /**
      * Time of register data
      */
-    @Column(name = "register_date")
-    @CreationTimestamp
+    @Column(name = "register_date", updatable = false)
     @TimeZoneStorage(value = TimeZoneStorageType.AUTO)
     @DateTimeFormat(pattern = "DD/MM/YYYY")
+    @Persistent
+    @CurrentTimestamp
     private Date registerDate;
 
     /**
      * Time of update data
      */
-    @Column(name = "update_date")
+    @Column(name = "update_date", insertable = false)
     @TimeZoneStorage(value = TimeZoneStorageType.AUTO)
     @DateTimeFormat(pattern = "DD/MM/YYYY")
     @UpdateTimestamp
     private Date updateDate;
-
 
 }
