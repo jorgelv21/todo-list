@@ -5,9 +5,13 @@ import com.example.ToDoList.model.GenericClass;
 import com.example.ToDoList.repositories.GenericRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 
+import java.lang.annotation.ElementType;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Generic Service.
@@ -59,12 +63,21 @@ public abstract class GenericService<T extends GenericClass, L extends Number> {
 
     /**
      * Update data method
-     * @param payload Data payload
+     * @param updates Data payload
      * @param id - Data id
      */
-    public void updateData(T payload, L id){
+    public void updateData(Map<String, Object> updates, L id){
         T object = getDataById(id);
-        BeanUtils.copyProperties(payload, object, "id");
+        updates.forEach((key, value) -> {
+            if (!key.equals("id")) {
+                Field field = ReflectionUtils.findField(object.getClass(), key);
+                if (field != null) {
+                    field.setAccessible(true);
+                    ReflectionUtils.setField(field, object, value);
+                }
+            }
+        });
+        BeanUtils.copyProperties(updates, object, "id");
         genericRepository.saveAndFlush(object);
     }
 
