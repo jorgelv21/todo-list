@@ -11,9 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -73,9 +71,11 @@ class GenericServiceTest <T extends GenericClass, L extends Number> {
         Long id = 1L;
         GenericClass payload = new GenericClass(id, true, new Date(), null);
 
+        Map<String, Object> update = new HashMap<>();
+
         when(genericService.getDataById(id)).thenReturn((T) genericClass);
 
-        genericService.updateData((T) payload, id);
+        genericService.updateData(update, id);
 
         verify(genericRepository).saveAndFlush(captor.capture());
         GenericClass updated = captor.getValue();
