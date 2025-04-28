@@ -46,7 +46,7 @@ class UserServiceTest {
     void getDataById() {
 
 
-        User user = new User("Test", null);
+        User user = new User("Test", null, "test", "test");
         user.setId(1L);
 
         Mockito.when(userService.getDataById(user.getId())).thenReturn(user);
@@ -60,7 +60,7 @@ class UserServiceTest {
 
     @Test
     void createData() {
-        User payload = new User("Test", null);
+        User payload = new User("Test", null, "test", "test");
         User result = userService.createData(payload);
 
         assertNotNull(result.getName());
