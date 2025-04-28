@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("user")
 public class UserController extends GenericController<User, Long> {
+
+
     /**
      * Generic Service Constructor
      *
@@ -19,6 +21,4 @@ public class UserController extends GenericController<User, Long> {
     protected UserController(GenericRepository<User, Long> genericRepository) {
         super(genericRepository);
     }
-
-
 }

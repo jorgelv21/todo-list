@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
+
 
 @Configuration
 @EnableWebSecurity
@@ -30,13 +32,14 @@ public class SecurityConfig{
         this.jwtRequestFilter = jwtRequestFilter;
     }
 
+    private final String[] whiteList = new String[]{"user/**",  "authenticate/**"};
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(request -> {
-            request.requestMatchers(
-                    "/user/**"
-            ).hasRole("USER");
+            request.requestMatchers(whiteList).permitAll()
+                    .anyRequest().authenticated();
         });
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -63,5 +66,8 @@ public class SecurityConfig{
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+
 
 }

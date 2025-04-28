@@ -23,25 +23,21 @@ public class GenericController<T extends GenericClass, L extends Number> extends
     }
 
     @GetMapping
-    @PreAuthorize("Authorization::hasRole('USER')")
     public ResponseEntity<List<T>> findAll(){
         return new ResponseEntity<>(getAllData(), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("Authorization::hasRole('USER')")
     public ResponseEntity<T> findById(@PathVariable("id") L id){
         return new ResponseEntity<>(getDataById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    @PreAuthorize("Authorization::hasRole('USER')")
     public ResponseEntity<T> create(@RequestBody T payload){
         return new ResponseEntity<>(createData(payload), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("Authorization::hasRole('USER')")
     public ResponseEntity<Void> update (@PathVariable("id") L id,
                                         @RequestBody Map<String, Object> updates){
         updateData(updates, id);
@@ -49,14 +45,12 @@ public class GenericController<T extends GenericClass, L extends Number> extends
     }
 
     @DeleteMapping("/logically/{id}")
-    @PreAuthorize("Authorization::hasRole('USER')")
     public ResponseEntity<Void> deleteLogically (@PathVariable("id") L id){
         this.deleteDataLogically(id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/physically/{id}")
-    @PreAuthorize("Authorization::hasRole('USER')")
     public ResponseEntity<Void> deletePhysically (@PathVariable("id") L id){
         this.deleteDataPhysically(id);
         return ResponseEntity.ok().build();

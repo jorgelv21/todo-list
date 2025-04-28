@@ -1,5 +1,6 @@
 package com.example.ToDoList.services;
 
+import com.example.ToDoList.exceptions.NotFoundException;
 import com.example.ToDoList.model.User;
 import com.example.ToDoList.repositories.GenericRepository;
 import com.example.ToDoList.repositories.UserRepository;
